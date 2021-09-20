@@ -5,7 +5,7 @@ export class AppService {
   private readonly logger = new Logger(AppService.name);
 
   test() {
-    this.logger.log('test message');
+    this.logger.log('test message', { flushImmediately: true });
     // Logger.flush();
   }
 }

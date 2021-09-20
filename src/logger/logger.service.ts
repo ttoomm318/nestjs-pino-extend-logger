@@ -22,8 +22,16 @@ export class LoggerService extends Logger {
   }
 
   log(message: any, ...optionalParams: any[]) {
-    super.log(message, ...optionalParams);
-    BaseLogger.flush();
+    const [loggerOptions, ...otherParams] = optionalParams;
+    if (
+      typeof loggerOptions === 'object' &&
+      'flushImmediately' in loggerOptions &&
+      loggerOptions.flushImmediately === true
+    ) {
+      super.log(message, ...otherParams);
+      BaseLogger.flush();
+    } else
+      super.log(message, ...optionalParams);
   }
 
   warn(message: any, ...optionalParams: any[]) {
